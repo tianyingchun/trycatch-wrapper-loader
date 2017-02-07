@@ -15,7 +15,11 @@ gulp.task("webpack:build", function (callback) {
         "NODE_ENV": JSON.stringify("production")
       }
     })
-    // new webpack.optimize.UglifyJsPlugin()
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: {
+    //     warnings: true
+    //   }
+    // })
   );
 
   // run webpack
