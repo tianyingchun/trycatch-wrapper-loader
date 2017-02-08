@@ -1,7 +1,11 @@
 export const sqrt = Math.sqrt;
 
 export function square(x) {
-  return x * x;
+  try {
+    return x * x;
+  } catch (e) {
+
+  }
 }
 
 export function diag(x, y) {

@@ -24,8 +24,8 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.css$/i, use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: [{ loader: "css-loader" }] }) },
-      { test: /\.less$/i, use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ["css-loader", "less-loader"] }) },
+      { test: /\.css$/i, use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: [{ loader: "css-loader", options: { minimize: true } }] }) },
+      { test: /\.less$/i, use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ["css-loader?" + JSON.stringify({ minimize: true }), "less-loader"] }) },
       { test: /\.scss$/i, use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: "css-loader!sass-loader" }) },
       // For testing purpose, use local loader :`loader: path.join(__dirname, 'index.js')`
       { test: /\.(js|jsx)$/, use: [{ loader: 'babel-loader', options: { presets: ["es2015"] } }, { loader: path.join(__dirname, 'index.js'), options: { exceptionHandler: 'console.error(e);windowsendError(e)' } }], exclude: /(node_modules|bower_components)/ }
