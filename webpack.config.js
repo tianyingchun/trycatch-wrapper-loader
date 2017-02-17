@@ -28,7 +28,7 @@ module.exports = {
       { test: /\.less$/i, use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ["css-loader?" + JSON.stringify({ minimize: true }), "less-loader"] }) },
       { test: /\.scss$/i, use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: "css-loader!sass-loader" }) },
       // For testing purpose, use local loader :`loader: path.join(__dirname, 'index.js')`
-      { test: /\.(js|jsx)$/, use: [{ loader: 'babel-loader', options: { presets: ["es2015"] } }, { loader: path.join(__dirname, 'index.js'), options: { exceptionHandler: 'console.error(e);windowsendError(e)' } }], exclude: /(node_modules|bower_components)/ }
+      { test: /\.(js|jsx)$/, use: [{ loader: 'babel-loader', options: { presets: ["es2015"] } }, { loader: path.join(__dirname, 'index.js'), options: { exceptionHandler: 'console.error(e);windowsendError(e)', glob: '/test/es6/**', fileFormatter: '${file}#L${loc.start.line} ${loc.start.line}:${loc.end.line}' } }], exclude: /(node_modules|bower_components)/ }
     ]
   },
   resolve: {

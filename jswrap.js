@@ -3,8 +3,22 @@
 var esprima = require('esprima');
 var escodegen = require('escodegen');
 var _ = require('lodash');
+var minimatch = require('minimatch');
+var chalk = require('chalk');
 
-module.exports = function (code, file, catchbody) {
+module.exports = function (code, file, loaderOptions) {
+  var catchbody = loaderOptions.exceptionHandler || 'console.error(e)';
+  var fileFormatter = 'e.position = "' + (loaderOptions.fileFormatter || '${file}#L${loc.start.line} ${loc.start.line}:${loc.end.line}') + '"';
+  var globPattern = loaderOptions.glob || '**';
+
+  // minimatch('/test/name/z.js', '/test/{name,}/**.js', {matchBase:true});
+  // minimatch('/test/name/z.js', '/test/name/**', {matchBase:true});
+  // Add minimatch glob pattern to limit the trycatch loader.
+  if (!minimatch(file, globPattern, { matchBase: true })) {
+    return code;
+  } else {
+    console.log(chalk.blue('[Apply trycatch-wrapper]: '), chalk.yellow(file));
+  }
 
   _.templateSettings = {
     evaluate: /\{\{#([\s\S]+?)\}\}/g, // {{# console.log("blah") }}
@@ -40,12 +54,26 @@ module.exports = function (code, file, catchbody) {
     })
   }
 
+  function strFormat(template, data) {
+    var keys = Object.keys(data),
+      dataList;
+
+    dataList = keys.map(function (key) {
+      return data[key]
+    });
+
+    // 这里使用反引号来构建模板引擎
+    return new Function(keys.join(','), 'return `' + template + '`;')
+      .apply(null, dataList);
+  }
+
   parse(root)
 
   _.each(fns, function (fn, index) {
     // move nested functions outside the body
-    var nestedFns = [],
-      errorPosition = esprima.parse('e.position = "' + file + ' ' + fn.loc.start.line + ':' + fn.loc.end.line + '"');
+    var nestedFns = [];
+
+    var errorPosition = esprima.parse(strFormat(fileFormatter, { file: file, loc: fn.loc }));
 
     _.each(fn.body.body, function (el) {
       if (isFn(el)) {

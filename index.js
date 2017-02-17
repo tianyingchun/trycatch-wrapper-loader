@@ -9,7 +9,7 @@ module.exports = function (contents) {
 
   var loaderOptions = loaderUtils.parseQuery(this.query);
   var file = this.resourcePath.replace(this.options.context, '');
-  var result = jsWrap(contents, file, loaderOptions.exceptionHandler || 'console.error(e)');
+  var result = jsWrap(contents, file, loaderOptions);
 
   return result;
 };

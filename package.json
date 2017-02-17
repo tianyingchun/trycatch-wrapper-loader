@@ -43,6 +43,7 @@
     "gulp-util": "^3.0.8",
     "less": "^2.7.2",
     "less-loader": "^2.2.3",
+    "minimatch": "^3.0.3",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.1"
   }
