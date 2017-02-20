@@ -1,7 +1,7 @@
 require('./stylesheets');
 
 import { square, diag } from './es6/lib';
-
+import treeshaking from './webpack-tree-shaking/';
 import Circle from './es6/Circle.js';
 
 require('./es6/angular.js');
