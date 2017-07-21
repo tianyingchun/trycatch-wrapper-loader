@@ -13,6 +13,7 @@ var sqr = square(4);
 
 function showData(data) {
   console.log(data);
+  circle.restProps();
 }
 //
 showData(sqr, area);

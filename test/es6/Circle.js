@@ -15,6 +15,9 @@ export default class Circle {
   area() {
     return Math.pow(this.radius, 2) * Math.PI;
   };
+  restProps (a, ...restProps) {
+    console.log(a, restProps);
+  }
   get radius() {
     return this._radius;
   };

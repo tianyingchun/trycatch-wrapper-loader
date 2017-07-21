@@ -38,7 +38,7 @@ module.exports = {
               ['es2015', { modules: false }]
             ],
           }
-        }, { loader: path.join(__dirname, 'index.js'), options: { exceptionHandler: 'console.error(e);windowsendError(e)', glob: '/test/es6/**', fileFormatter: '${file}#L${loc.start.line} ${loc.start.line}:${loc.end.line}' } }],
+        }, { loader: path.join(__dirname, 'index.js'), options: { exceptionHandler: 'console.error(e);windowsendError(e)', glob: '/test/**/*/!(lib).js', fileFormatter: '${file}#L${loc.start.line} ${loc.start.line}:${loc.end.line}' } }],
         exclude: /(node_modules|bower_components)/
       }
     ]
